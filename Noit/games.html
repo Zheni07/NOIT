@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игри</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="My friend" width="85" height="85">
+            </div>
+            <div class="nav-buttons">
+                <button onclick="goToHome()">Начало</button>
+                <button id="profile-button" onclick="goToLogin()">Вход / Регистрация</button>
+                <button id="games-button" style="display: none;" onclick="goToGames()">Игри</button>
+                <button id="profile-info-button" style="display: none;" onclick="showProfileInfo()">Профил</button>
+                <button id="logout-button" style="display: none;" onclick="logout()">Изход</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Игри</h1>
+        <div id="games-list">
+            <a href="game1.html" class="game-link">Игра 1</a>
+            <a href="game2.html" class="game-link">Игра 2</a>
+            <a href="game3.html" class="game-link">Игра 3</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Вашият сайт</p>
+    </footer>
+
+    <script>
+        // Проверка дали потребителят е влязъл в профила си
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            alert("Моля, влезте в профила си, за да играете игри.");
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('profile-button').style.display = 'none';
+            document.getElementById('games-button').style.display = 'inline-block';
+            document.getElementById('profile-info-button').style.display = 'inline-block';
+            document.getElementById('logout-button').style.display = 'inline-block';
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+
+        function goToGames() {
+            window.location.href = 'games.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

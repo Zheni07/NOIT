@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход / Регистрация</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Хедър -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="My friend" width="85" height="80">
+            </div>
+            <div class="nav-buttons">
+                <button onclick="goToHome()">Начало</button>
+                <button id="profile-button" onclick="goToLogin()">Вход / Регистрация</button>
+                <button id="games-button" disabled onclick="goToGames()">Игри</button>
+                <button id="profile-info-button" style="display: none;" onclick="showProfileInfo()">Профил</button>
+                <button id="logout-button" style="display: none;" onclick="logout()">Изход</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основно съдържание -->
+    <main>
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+        </div>
+        <div class="canvas">
+            <div class="logo-container">
+                <img src="logo.png" alt="My friend" width="85" height="80">
+            </div>
+            <h1>Регистрация/ Вход</h1>
+            <input type="text" id="name" placeholder="Име">
+            <input type="password" id="password" placeholder="Парола">
+            <div class="sound-selection">
+                <div class="sound-option" onclick="selectSound('sound1.mp3')">
+                    <i class="fas fa-music"></i>
+                    <span>Звук 1</span>
+                </div>
+                <div class="sound-option" onclick="selectSound('sound2.mp3')">
+                    <i class="fas fa-music"></i>
+                    <span>Звук 2</span>
+                </div>
+                <div class="sound-option" onclick="selectSound('sound3.mp3')">
+                    <i class="fas fa-music"></i>
+                    <span>Звук 3</span>
+                </div>
+                <div class="sound-option" onclick="selectSound('sound4.mp3')">
+                    <i class="fas fa-music"></i>
+                    <span>Звук 4</span>
+                </div>
+            </div>
+            <button id="register-button" onclick="register()">Регистрация</button>
+        </div>
+    </main>
+
+    <script>
+        let selectedSound = null;
+
+        function playSound(soundFile) {
+            const audio = new Audio(soundFile);
+            audio.play();
+        }
+
+        function selectSound(soundFile) {
+            selectedSound = soundFile;
+            const soundOptions = document.querySelectorAll('.sound-option');
+            soundOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            playSound(soundFile);
+        }
+
+        function register() {
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+            const sound = selectedSound;
+
+            if (!name || !password || !sound) {
+                alert("Моля, попълнете всички полета и изберете звук.");
+                return;
+            }
+
+            // Запазване на данните в localStorage
+            const user = { name, password, sound, scores: [] };
+            localStorage.setItem('currentUser', JSON.stringify(user));
+
+            // Пренасочване към началната страница
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профил</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Хедър -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="My friend" width="85" height="80">
+            </div>
+            <div class="nav-buttons">
+                <button onclick="goToHome()">Начало</button>
+                <button id="profile-button" onclick="goToLogin()">Вход / Регистрация</button>
+                <button id="games-button" disabled onclick="goToGames()">Игри</button>
+                <button id="profile-info-button" style="display: none;" onclick="showProfileInfo()">Профил</button>
+                <button id="logout-button" style="display: none;" onclick="logout()">Изход</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основно съдържание -->
+    <main>
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+        </div>
+        <div class="canvas">
+            <h1>Профил</h1>
+            <div id="user-info"></div>
+            <h2>Статистика</h2>
+            <div id="best-scores">
+                <h3>Най-добри резултати</h3>
+                <div id="best-scores-list"></div>
+            </div>
+            <div id="recent-scores">
+                <h3>Последни резултати</h3>
+                <div id="recent-scores-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2023 Вашият сайт</p>
+    </footer>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Начална страница</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Хедър -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="My friend" width="85" height="80">
+            </div>
+            <div class="nav-buttons">
+                <button onclick="goToHome()">Начало</button>
+                <button id="profile-button" onclick="goToLogin()">Вход / Регистрация</button>
+                <button id="games-button" disabled onclick="goToGames()">Игри</button>
+                <button id="profile-info-button" style="display: none;" onclick="showProfileInfo()">Профил</button>
+                <button id="logout-button" style="display: none;" onclick="logout()">Изход</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основно съдържание -->
+    <main>
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+        </div>
+        <div class="canvas">
+            <h1>Добре дошли!</h1>
+            <div class="autism-info">
+                <h2>Добре дошли в нашия свят на игри и развитие!</h2>
+                <p>Този уебсайт е създаден с любов и грижа за деца с аутизъм. Тук ще намерите забавни и образователни игри, които помагат на децата да развият важни умения като комуникация, концентрация и социално взаимодействие.</p>
+
+                <h2>Какво е аутизъм?</h2>
+                <p>Аутизмът е невроразвитийно състояние, което засяга начина, по който човек възприема света, обработва информация и общува с другите. Той е спектър, което означава, че всяко дете с аутизъм има различни нужди, силни страни и предизвикателства.</p>
+
+                <h3>Основните области, в които децата с аутизъм могат да изпитват затруднения, включват:</h3>
+                <ul>
+                    <li><strong>Комуникация</strong> - Някои деца може да имат трудности с изразяването на мисли и чувства, докато други могат да използват алтернативни начини за общуване, като жестове или картини.</li>
+                    <li><strong>Социално взаимодействие</strong> - Децата с аутизъм често намират за предизвикателно да разбират социалните норми, като контакт с очите, изразяване на емоции или споделяне на интереси с връстници.</li>
+                    <li><strong>Повтарящи се поведения</strong> - Могат да проявяват повтарящи се движения или ритуали, които ги успокояват или им помагат да се справят със сензорното натоварване.</li>
+                    <li><strong>Сензорна чувствителност</strong> - Светлина, звуци, текстури или миризми могат да бъдат възприемани по-силно от децата с аутизъм, което да предизвиква стрес или дискомфорт.</li>
+                </ul>
+
+                <p>Въпреки тези предизвикателства, децата с аутизъм често имат изключителни способности в определени области като логическо мислене, внимание към детайлите или креативност. Важно е те да бъдат подкрепяни в развиването на своите таланти и умения.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2023 Вашият сайт</p>
+    </footer>
+
+    <script>
+        // Проверка дали потребителят е влязъл в профила си
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser) {
+            document.getElementById('profile-button').style.display = 'none';
+            document.getElementById('games-button').disabled = false;
+            document.getElementById('profile-info-button').style.display = 'inline-block';
+            document.getElementById('logout-button').style.display = 'inline-block';
+        }
+
+        // Функции за навигация
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+
+        function goToGames() {
+            if (currentUser) {
+                window.location.href = 'games.html';
+            } else {
+                alert("Моля, влезте в профила си, за да играете игри.");
+                window.location.href = 'login.html';
+            }
+        }
+
+        function showProfileInfo() {
+            const profileInfo = document.getElementById('profile-info');
+            profileInfo.style.display = 'block';
+
+            // Показване на информация за профила
+            document.getElementById('user-info').innerHTML = `
+                <p>Име: ${currentUser.name}</p>
+                <p>Години: ${currentUser.age}</p>
+                <p>Пол: ${currentUser.gender}</p>
+                <p>Избран звук: ${currentUser.sound}</p>
+            `;
+
+            // Показване на резултатите от игрите
+            const scoresList = currentUser.scores.map(score => `
+                <p>${score.date}: ${score.game} - ${score.points} точки</p>
+            `).join('');
+            document.getElementById('scores').innerHTML = scoresList;
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
